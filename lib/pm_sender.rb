@@ -10,8 +10,8 @@ require 'pm_sender/engines/base'
 require 'pm_sender/engines/erb_engine'
 require 'pm_sender/engines/haml_engine'
 require 'pm_sender/config'
-require 'pm_sender/base'
 require 'pm_sender/render'
+require 'pm_sender/base'
 
 module PmSender
 

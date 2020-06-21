@@ -32,11 +32,14 @@ module PmSender
 
     private
 
-    def sms(to: nil, options: {})
-      caller_method = caller_locations.first.label.to_sym
-      self.action_name = DEFAULT
-      self.action_name = caller_method if self.class.action_methods.include?(caller_method)
-      PmSender::ServiceCaller.new(to, options).call(self)
+    def sms(to: nil, prerender: nil, view: nil)
+      self.action_name = view if view
+      if self.action_name.blank?
+        self.action_name ||= DEFAULT
+        caller_method = caller_locations.first.label.to_sym
+        self.action_name ||= caller_method if self.class.action_methods.include?(caller_method)
+      end
+      PmSender::ServiceCaller.new(to, prerender: prerender).call(self)
     end
 
   end

@@ -31,7 +31,10 @@ module PmSender
     end
 
     def render_text
-      PmSender::Render.new(sender).render
+      content = PmSender::Render.new(sender).render
+      return content if options[:prerender].blank?
+      content = options[:prerender].call(content) if options[:prerender].respond_to?(:call)
+      return content
     end
 
   end
